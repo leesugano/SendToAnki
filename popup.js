@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+  chrome.storage.sync.get('selectedText', ({ selectedText }) => {
+    if (selectedText) {
+      document.getElementById('front').value = selectedText;
+    }
+  });
+
   const deckSelect = document.getElementById('deck');
   const frontInput = document.getElementById('front');
 
@@ -21,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         option.textContent = deck;
         deckSelect.appendChild(option);
       });
-
+      
       chrome.storage.sync.get('lastSelectedDeck', ({ lastSelectedDeck }) => {
         if (lastSelectedDeck) {
           deckSelect.value = lastSelectedDeck;
@@ -30,12 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
   .catch(error => console.error('Erro ao buscar decks do Anki:', error));
-
-  chrome.storage.sync.get('selectedText', ({ selectedText }) => {
-    if (selectedText) {
-      frontInput.value = selectedText;
-    }
-  });
 
   document.getElementById('ankiForm').addEventListener('submit', (event) => {
     event.preventDefault();
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Nota adicionada ao Anki!');
         chrome.storage.sync.remove('selectedText');
         chrome.storage.sync.set({ lastSelectedDeck: deck });
-        window.close(); 
+        window.close();
       }
     })
     .catch(error => {
