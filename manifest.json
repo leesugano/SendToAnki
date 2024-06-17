@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Anki Flashcard Sender",
-  "version": "6.0",
+  "version": "7.0",
   "description": "Send selected text directly to Anki as flashcards.",
   "web_accessible_resources": [
     { "resources": ["icons/*"], "matches": ["<all_urls>"] }
